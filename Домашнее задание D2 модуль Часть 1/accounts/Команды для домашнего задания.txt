@@ -1,0 +1,79 @@
+1-Создание юзеров
+User1
+User1=User.objects.crate_user(username='saha_sha')
+
+User2
+User2=User.objects.create_user(username='Shvarts')
+
+
+2-Создание авторов,и присвоение их к юезерам
+Author1
+Author.objects.create(Auser=User1)
+
+Author2
+Author.objects.crate(Auser=User2)
+
+
+3-Создание категорий
+Category1
+Category.objects.create(category = 'IT')
+
+Category2
+Category.objects.create(category = 'SP')
+
+Category3
+Category.objects.create(category = 'BT')
+
+Category4
+Category.objects.create(category = 'CS')
+
+
+4-Создание постов,присвоение вида поста, и автора этого поста
+
+Post.objects.create(author = Author.objects.get(id=3), Cpost='NW',Title='Стены больше нет',Text="Падение Берлинской стены....")
+
+Post.objects.create(author = Author.objects.get(id=3), Cpost='AC',Title='Прогулки в праке',Text="Прогулки в парке всегда помогали людям в.....")
+
+Post.objects.create(author = Author.objects.get(id=2), Cpost='AC',Title='Нейрости вокруг нас',Text="Нейрости скоро заменят джунов")
+
+
+5-Присвоение категорий постам
+
+Post.objects.get(id = 1).postCategory.add(Category.objects.get(id=1))
+
+Post.objects.get(id = 1).postCategory.add(Category.objects.get(id=2))
+
+Post.objects.get(id = 2).postCategory.add(Category.objects.get(id=3))
+
+Post.objects.get(id = 3).postCategory.add(Category.objects.get(id=4))
+
+
+6-Создание коментариев,присвоение их к постам и юзерам которые их написали
+
+Comment.objects.create(CommentPost=Post.objects.get(id=3),CommentUser = User.objects.get(username='Shvarts'),Text = 'Somecommensts')
+
+Comment.objects.create(CommentPost=Post.objects.get(id=1),CommentUser = User.objects.get(username='saha_sha'),Text = 'Somecomments')
+
+Comment.objects.create(CommentPost=Post.objects.get(id=3),CommentUser = User.objects.get(id=2),Text = 'Somecomments')
+
+Comment.Objects.create(Text="Автор не понимает о чем говорит", CommentUser = User.objects.get(id=3),CommentPost=Post.objects.get(id=2))
+
+7-Регулировка рейтинга Обьектов
+
+Коментарии
+Comment.objects.get(id=2).Like()-Повышение рейтинга коментария
+Comment.objects.get(id=4).Dislake()-Понижение рейтинга коментраия
+
+Пост
+Post.objects.get(id=3).Like()-Повышение рейтинга поста
+Post.objects.get(id=2).Dislike()-Понижение рейтинга поста
+
+8-Обновление рейтинга пользователей
+User.objects.get(id=1).update_rating()
+
+9-Пользователь с самым высоким рэйтингjv
+
+Author.objects.order_by('-Arating')[0:1].values('Arating','Authorname')
+
+10-Вывести дату добавления, username автора, рейтинг, заголовок и превью лучшей статьи, основываясь на лайках/дислайках к этой статье.
+Post.objects.order_by('-Prating')[0:1].values('author','Prating','Tite','Timeadd').preview()
