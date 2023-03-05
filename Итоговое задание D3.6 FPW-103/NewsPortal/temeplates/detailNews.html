@@ -1,0 +1,16 @@
+
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+
+<!-- Название у нас будет News -->
+{% block title %}
+News
+{% endblock title %}
+
+<!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
+{% block content %}
+<h1>{{ news.Title|cenzor }}</h1> <!--Пременяем наш фильтр -->
+<h2>{{news.pub_time|date:'M d Y'}}</h2><!--Достаем время и дату из поля модели,и задаем филтр-->
+<h3>{{news.Text|cenzor}}</h3><!--Пременяем наш фильтр -->
+{% endblock content %}
